@@ -1,0 +1,293 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --green: #5C6F5B;
+  --green-mid: #7D8F69;
+  --green-light: #EEF2EA;
+  --green-pale: #C8D5C0;
+  --text: #2F2A24;
+  --text-muted: #6F6A63;
+  --text-faint: #A8A29B;
+  --bg: #F5F1E9;
+  --surface: #ffffff;
+  --border: rgba(60,50,40,0.08);
+  --border-mid: rgba(60,50,40,0.18);
+  --radius: 14px;
+  --radius-sm: 10px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', Arial, sans-serif;
+  line-height: 1.5;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Navbar ─────────────────────────────── */
+.navbar {
+  background: RGBA(255,255,255,0.75);
+  backdrop-filter: blur(8px);
+  border-bottom: 0.5px solid var(--border);
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 56px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.nav-brand {
+  font-family: 'Space Mono', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+
+.nav-brand span { color: var(--green-mid); }
+
+.nav-links a {
+  color: var(--text-muted);
+  margin-left: 4px;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 0.5px solid transparent;
+  transition: all 0.15s;
+  display: inline-block;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+  background: #f0efec;
+}
+
+/* ── Container ───────────────────────────── */
+.container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  width: 100%;
+  flex: 1;
+}
+
+/* ── Home Page ───────────────────────────── */
+.home {
+  padding: 2.5rem 0 4rem;
+}
+
+.home h1 {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.8px;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.home p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 1.5rem;
+}
+
+/* ── Task Input ──────────────────────────── */
+.task-input {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1rem;
+  background: var(--green-light);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  align-items: center;
+}
+
+.task-input input {
+  flex: 1;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-size: 14px;
+  color: var(--text);
+  outline: none;
+}
+
+.task-input input::placeholder { color: var(--text-faint); }
+
+.task-input button {
+  padding: 8px 18px;
+  background: var(--green);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+
+.task-input button:hover { background: 4A5A49; }
+.task-input button:active { transform: scale(0.97); }
+
+/* ── Task List ───────────────────────────── */
+.task-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--surface);
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius);
+  border: 0.5px solid var(--border);
+  box-shadow: 0 4PX 12PX RGBA(0,0,0,0.3);
+  gap: 12px;
+  transition: all 0.2 ease;
+  animation: slideIn 0.18s ease;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.task-item:hover { border-color: var(--border-mid); transform: translateY(-1px); }
+
+.task-item.completed { opacity: 0.5; }
+
+.task-item span {
+  cursor: pointer;
+  flex: 1;
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.4;
+  transition: color 0.15s;
+}
+
+.task-item.completed span {
+  text-decoration: line-through;
+  color: var(--text-faint);
+}
+
+.task-item button {
+  background: transparent;
+  color: var(--text-faint);
+  border: none;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 12px;
+  font-family: 'DM Sans', Arial, sans-serif;
+  font-weight: 500;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+
+.task-item button:hover { background: #FCEBEB; color: #A32D2D; }
+
+/* ── Empty State ─────────────────────────── */
+.empty {
+  color: var(--text-faint);
+  text-align: center;
+  margin-top: 3rem;
+  font-size: 14px;
+}
+
+/* ── About Page ──────────────────────────── */
+.about {
+  padding: 2.5rem 0 4rem;
+}
+
+.about h1 {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.8px;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+}
+
+.about > p {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  max-width: 480px;
+}
+
+.about h2 {
+  font-size: 11px;
+  font-family: 'Space Mono', monospace;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 0.75rem;
+  margin-top: 2rem;
+}
+
+.about ul {
+  padding-left: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.about li {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-size: 13px;
+  color: var(--text);
+  margin-bottom: 0;
+}
+
+.filters {
+  display: flex;
+  gap: 6px;
+  margin: 1rem 0;
+}
+
+.filters button {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 20px;
+  border: 0.5px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.filters button.active {
+  background: var(--green);
+  color: white;
+}
+
+/* ── Responsive ──────────────────────────── */
+@media (max-width: 520px) {
+  .home h1, .about h1 { font-size: 22px; }
+  .task-item { padding: 0.75rem; }
+  .navbar { padding: 0 1rem; }
+  .container { padding: 0 1rem; }
+  .about ul { grid-template-columns: 1fr; }
+  .task-input { flex-wrap: wrap; flex-direction: column; align-items: stretch;}
+  .task-input button { width: 100%; }
+}
