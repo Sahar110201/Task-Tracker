@@ -7,9 +7,9 @@ export default function About() {
       <ul>
         <li>Jhemuel Panit — Frontend</li>
         <li>Sahar Adeeb — State Management</li>
-        <li>Kristine May Garcia — Styling</li>
-        <li>Jayden Charles — Styling</li>
-        <li>Kuan Yi Li — Data Handling</li>
+        <li>Kristine May Garcia — Styling & Documentation</li>
+        <li>Jayden Charles</li>
+        <li>Kuan Yi Li</li>
       </ul>
     </div>
   );
