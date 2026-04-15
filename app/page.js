@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import TaskInput from "../components/TaskInput";
 import TaskList from "../components/TaskList";
 
+// state management
 export default function Home() {
   const [tasks, setTasks] = useState([]);
   const [filter, setFilter] = useState("all"); // ✅ MOVE HERE
