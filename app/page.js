@@ -1,16 +1,12 @@
-import { Container, Card, InputGroup, Button } from "./styles";
+"use client";
 import { useState, useEffect } from "react";
-import TaskInput from "./TaskInput";
-import TaskList from "./TaskList";
-import { fetchQuote } from "../utils/api";
+import TaskInput from "../components/TaskInput";
+import TaskList from "../components/TaskList";
 
 // state management
 export default function Home() {
   const [tasks, setTasks] = useState([]);
-  const [filter, setFilter] = useState("all");
-  const [quote, setQuote] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [filter, setFilter] = useState("all"); // ✅ MOVE HERE
 
   useEffect(() => {
     const saved = localStorage.getItem("tasks");
@@ -22,94 +18,66 @@ export default function Home() {
   }, [tasks]);
 
   const addTask = (text) => {
-    setTasks([
-      ...tasks,
-      { id: Date.now(), text, completed: false }
-    ]);
+    setTasks([...tasks, { id: Date.now(), text, completed: false }]);
   };
 
   const toggleTask = (id) => {
-    setTasks(
-      tasks.map(task =>
-        task.id === id
-          ? { ...task, completed: !task.completed }
-          : task
-      )
-    );
+    setTasks(tasks.map(t =>
+      t.id === id ? { ...t, completed: !t.completed } : t
+    ));
   };
 
   const deleteTask = (id) => {
-    setTasks(tasks.filter(task => task.id !== id));
+    setTasks(tasks.filter(t => t.id !== id));
   };
 
+  // ✅ FILTER LOGIC HERE
   const filteredTasks = tasks.filter(task => {
     if (filter === "active") return !task.completed;
     if (filter === "completed") return task.completed;
     return true;
   });
 
-  const handleFetchQuote = async () => {
-    setLoading(true);
-    setError(null);
-
-    const result = await fetchQuote();
-
-    if (result) {
-      setQuote(result);
-    } else {
-      setError("Could not load quote");
-    }
-
-    setLoading(false);
-  };
-
   return (
-    <Container>
-      <Card>
-        <h1>My Tasks</h1>
+    <div className="home">
+      <h1>My Tasks</h1>
 
-        <p style={{ color: "#94a3b8", fontSize: "13px", marginTop: "-8px" }}>
-          State management + API integration project
-        </p>
+      <p>
+        {tasks.filter(t => t.completed).length} / {tasks.length} completed
+      </p>
 
-        <p style={{ color: '#64748b', marginBottom: '1rem' }}>
-          {tasks.filter(t => t.completed).length} / {tasks.length} completed
-        </p>
+      <TaskInput onAdd={addTask} />
 
-        <TaskInput onAdd={addTask} />
+      {/* ✅ FILTER BUTTONS */}
+      <div className="filters">
+        <button
+          className={filter === "all" ? "active" : ""}
+          onClick={() => setFilter("all")}
+        >
+          All
+        </button>
 
-        <div className="quote-box">
-          <button onClick={handleFetchQuote} disabled={loading}>
-            {loading ? "Loading..." : "Get Motivation"}
-          </button>
+        <button
+          className={filter === "active" ? "active" : ""}
+          onClick={() => setFilter("active")}
+        >
+          Active
+        </button>
 
-          {error && <p>{error}</p>}
+        <button
+          className={filter === "completed" ? "active" : ""}
+          onClick={() => setFilter("completed")}
+        >
+          Completed
+        </button>
+      </div>
 
-          {quote && (
-            <p>
-              "{quote.text}" — {quote.author || "Unknown"}
-            </p>
-          )}
-        </div>
-
-        <InputGroup>
-          {["all", "active", "completed"].map((f) => (
-            <Button
-              key={f}
-              active={filter === f}
-              onClick={() => setFilter(f)}
-            >
-              {f.charAt(0).toUpperCase() + f.slice(1)}
-            </Button>
-          ))}
-        </InputGroup>
-
-        <TaskList
-          tasks={filteredTasks}
-          onToggle={toggleTask}
-          onDelete={deleteTask}
-        />
-      </Card>
-    </Container>
+      {/* ✅ USE filteredTasks HERE */}
+      <TaskList
+        tasks={filteredTasks}
+        onToggle={toggleTask}
+        onDelete={deleteTask}
+      />
+    </div>
   );
 }
