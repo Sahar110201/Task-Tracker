@@ -2,11 +2,16 @@
 import { useState, useEffect } from "react";
 import TaskInput from "../components/TaskInput";
 import TaskList from "../components/TaskList";
+import { fetchQuote } from "../utils/api";
 
 // state management
 export default function Home() {
   const [tasks, setTasks] = useState([]);
-  const [filter, setFilter] = useState("all"); // ✅ MOVE HERE
+  const [filter, setFilter] = useState("all"); // MOVE HERE
+  // State for storing API quote data and handling loading/error states
+  const [quote, setQuote] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const saved = localStorage.getItem("tasks");
@@ -31,7 +36,23 @@ export default function Home() {
     setTasks(tasks.filter(t => t.id !== id));
   };
 
-  // ✅ FILTER LOGIC HERE
+  // Function to fetch a motivational quote from API and update UI state
+  const handleFetchQuote = async () => {
+    setLoading(true);
+
+    const result = await fetchQuote();
+
+    if (result) {
+      setQuote(result);
+      setError(null);
+    } else {
+      setError("Could not load quote");
+    }
+
+    setLoading(false);
+  };
+
+  // FILTER LOGIC HERE
   const filteredTasks = tasks.filter(task => {
     if (filter === "active") return !task.completed;
     if (filter === "completed") return task.completed;
@@ -48,7 +69,21 @@ export default function Home() {
 
       <TaskInput onAdd={addTask} />
 
-      {/* ✅ FILTER BUTTONS */}
+      {/* Motivation quote section API placeholder */}
+      <div className="quote-box">
+        <button onClick={handleFetchQuote}>Get Motivation</button>
+
+        {loading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
+
+        {quote && (
+          <p>
+            "{quote.text}" — {quote.author}
+          </p>
+        )}
+      </div>
+
+      {/* FILTER BUTTONS */}
       <div className="filters">
         <button
           className={filter === "all" ? "active" : ""}
@@ -72,7 +107,7 @@ export default function Home() {
         </button>
       </div>
 
-      {/* ✅ USE filteredTasks HERE */}
+      {/* USE filteredTasks HERE */}
       <TaskList
         tasks={filteredTasks}
         onToggle={toggleTask}
