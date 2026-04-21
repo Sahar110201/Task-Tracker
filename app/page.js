@@ -7,7 +7,7 @@ import { fetchQuote } from "../utils/api";
 // state management
 export default function Home() {
   const [tasks, setTasks] = useState([]);
-  const [filter, setFilter] = useState("all"); // MOVE HERE
+  const [filter, setFilter] = useState("all"); 
   
   // State for storing API quote data and handling loading/error states
   const [quote, setQuote] = useState(null);
@@ -56,7 +56,7 @@ export default function Home() {
     setLoading(false);
   };
 
-  // FILTER LOGIC HERE
+  // FILTER LOGIC 
   const filteredTasks = tasks.filter(task => {
     if (filter === "active") return !task.completed;
     if (filter === "completed") return task.completed;
@@ -111,7 +111,6 @@ export default function Home() {
         </button>
       </div>
 
-      {/* USE filteredTasks HERE */}
       <TaskList
         tasks={filteredTasks}
         onToggle={toggleTask}
