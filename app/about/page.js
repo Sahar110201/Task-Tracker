@@ -9,7 +9,7 @@ export default function About() {
         <li>Sahar Adeeb — State Management</li>
         <li>Kristine May Garcia — Styling & Documentation</li>
         <li>Jayden Charles</li>
-        <li>Kuan Yi Li</li>
+        <li>Kuan Yi Li - API Intergration</li>
       </ul>
     </div>
   );
