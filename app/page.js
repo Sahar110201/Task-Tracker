@@ -8,6 +8,7 @@ import { fetchQuote } from "../utils/api";
 export default function Home() {
   const [tasks, setTasks] = useState([]);
   const [filter, setFilter] = useState("all"); // MOVE HERE
+  
   // State for storing API quote data and handling loading/error states
   const [quote, setQuote] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -24,6 +25,9 @@ export default function Home() {
 
   const addTask = (text) => {
     setTasks([...tasks, { id: Date.now(), text, completed: false }]);
+
+    // Fetch new quote when new task is added, to enhance UX 
+    handleFetchQuote();
   };
 
   const toggleTask = (id) => {
@@ -69,9 +73,9 @@ export default function Home() {
 
       <TaskInput onAdd={addTask} />
 
-      {/* Motivation quote section API placeholder */}
+      {/* Motivation quote */}
       <div className="quote-box">
-        <button onClick={handleFetchQuote}>Get Motivation</button>
+        <button onClick={handleFetchQuote}>Get Motivation Quote</button>
 
         {loading && <p>Loading...</p>}
         {error && <p>{error}</p>}

@@ -281,6 +281,54 @@ body {
   color: white;
 }
 
+/* ── Slim Quote Box (Sage Theme Match) ── */
+.quote-box {
+  background: var(--green-light); /* Matches your task-input background */
+  border: 0.5px solid var(--green-pale); /* Softer, thinner appearance */
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem; /* Much tighter padding to "thin" the box */
+  margin-bottom: 1rem;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.quote-box button {
+  background: var(--green); /* Using the main green for better contrast */
+  color: white;
+  border: none;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px; /* Smaller font for a sleeker look */
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  transition: opacity 0.15s;
+}
+
+.quote-box button:hover {
+  opacity: 0.9;
+}
+
+.quote-box p {
+  font-size: 13px; /* Slightly smaller text */
+  color: var(--text);
+  line-height: 1.4;
+  font-style: italic;
+  margin: 0;
+}
+
+/* Specifically target the author name if you use the " — Author" format */
+.quote-box p span, 
+.quote-box p strong {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  font-style: normal;
+  color: var(--green-mid);
+  text-transform: uppercase;
+  margin-left: 4px;
+}
+
 /* ── Responsive ──────────────────────────── */
 @media (max-width: 520px) {
   .home h1, .about h1 { font-size: 22px; }
