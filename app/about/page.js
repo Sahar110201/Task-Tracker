@@ -8,8 +8,7 @@ export default function About() {
         <li>Jhemuel Panit — Frontend</li>
         <li>Sahar Adeeb — State Management</li>
         <li>Kristine May Garcia — Styling & Documentation</li>
-        <li>Jayden Charles</li>
-        <li>Kuan Yi Li - API Intergration</li>
+        <li>Kuan Yi Li - API Integration</li>
       </ul>
     </div>
   );
